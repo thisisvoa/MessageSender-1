@@ -10,9 +10,12 @@
  */
 package org.message.service;
 
+import com.message.schedule.Schedule;
+import com.message.schedule.ScheduleHelper;
 import org.junit.Test;
 
 import com.message.base.utils.SpringUtils;
+import org.message.schedule.constant.ScheduleConstant;
 
 /**
  * 功能说明
@@ -28,5 +31,18 @@ public class MessageServiceTest {
 		
 		messageService.findAllMessage();
 	}
+
+    public static void main(String[] args) {
+        ScheduleHelper scheduleHelper = ScheduleHelper.createScheduleHelper();
+
+        scheduleHelper.registerSchedule(new Schedule() {
+            @Override
+            public void run() {
+                MessageService messageService = (MessageService)SpringUtils.getBean(MessageService.class);
+
+                messageService.findAllMessage();
+            }
+        }, ScheduleConstant.SECOND, ScheduleConstant.SECOND * 5);
+    }
 }
 
