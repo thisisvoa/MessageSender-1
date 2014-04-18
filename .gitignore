@@ -5,3 +5,5 @@ target/
 doc/
 .idea/
 *.iml
+build.xml
+.ant-targets-build.xml
