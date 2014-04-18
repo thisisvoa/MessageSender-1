@@ -12,31 +12,31 @@ package org.message.service;
 
 import java.util.List;
 
-import org.message.dao.MessageDao;
 import org.message.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * 功能说明
+ * 	短消息发送服务
  * 
  * @author 冯剑涛
  * @version 1.0
  * @since 2014年4月17日
  */
 @Service
-public class MessageService {
-	@Autowired
-	private MessageDao messageDao;
+public class MessageSendService {
 	
-	/**
-	 * 查询特定数量的还未发送的消息
-	 * 
-	 * @param messageCount						消息数量
-	 * @return									未发送的消息列表
-	 */
-	public List<Message> findMessagesNotSend(int messageCount) {
-		return messageDao.findSpecificCountMessage(messageCount);
+	@Autowired
+	private MessageService messageService;
+	
+	public void fetchMessageNotSend() {
+		List<Message> messageLi = messageService.findMessagesNotSend(10);
+		
+		for(Message message : messageLi) {
+			System.out.println(message.getText());
+			System.out.println(message.getState());
+		}
 	}
 }
 
