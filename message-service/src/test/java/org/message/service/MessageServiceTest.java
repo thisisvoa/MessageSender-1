@@ -42,5 +42,18 @@ public class MessageServiceTest {
 		
 		//massageSend.fetchMessageNotSend();	
 	}
+
+    public static void main(String[] args) {
+        ScheduleHelper scheduleHelper = ScheduleHelper.createScheduleHelper();
+
+        scheduleHelper.registerSchedule(new Schedule() {
+            @Override
+            public void run() {
+                MessageSendService messageService = (MessageSendService)SpringUtils.getBean(MessageSendService.class);
+
+                messageService.fetchMessageNotSend();
+            }
+        }, ScheduleConstant.SECOND, ScheduleConstant.SECOND * 5);
+    }
 }
 
